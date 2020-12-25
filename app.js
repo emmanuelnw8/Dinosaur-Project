@@ -1,4 +1,3 @@
-
     // Create Dino Constructor
 function Dino (species, weight, height, diet, where, when, fact) {
   this.species =  species
@@ -12,99 +11,114 @@ function Dino (species, weight, height, diet, where, when, fact) {
 
 
     // Create Dino Objects
-    // Refactor and use JSON to fetch data
-const triceratops = new Dino(
-      "Triceratops",
-      13000,
-      114,
-      "herbavor",
-      "North America",
-      "Late Cretaceous",
-      "First discovered in 1889 by Othniel Charles Marsh")
 
-  const trex = new Dino(
-      "Tyrannosaurus Rex",
-      11905,
-      144,
-      "carnivor",
-      "North America",
-      "Late Cretaceous",
-      "The largest known skull measures in at 5 feet long.")
 
-      const anklyo = new Dino(
-        "Anklyosaurus",
-        10500,
-        55,
-        "herbavor",
-       "North America",
-        "Late Cretaceous",
-        "Anklyosaurus survived for approximately 135 million years.")
+  const dinos =  [
+      {
+          "species": "Triceratops",
+          "weight": 13000,
+          "height": 114,
+          "diet": "herbavor",
+          "where": "North America",
+          "when": "Late Cretaceous",
+          "fact": "First discovered in 1889 by Othniel Charles Marsh"
+      },
+      {
+          "species": "Tyrannosaurus Rex",
+          "weight": 11905,
+          "height": 144,
+          "diet": "carnivor",
+          "where": "North America",
+          "when": "Late Cretaceous",
+          "fact": "The largest known skull measures in at 5 feet long."
+      },
+      {
+          "species": "Anklyosaurus",
+          "weight": 10500,
+          "height": 55,
+          "diet": "herbavor",
+          "where": "North America",
+          "when": "Late Cretaceous",
+          "fact": "Anklyosaurus survived for approximately 135 million years."
+      },
+      {
+          "species": "Brachiosaurus",
+          "weight": 70000,
+          "height": "372",
+          "diet": "herbavor",
+          "where": "North America",
+          "when": "Late Jurasic",
+          "fact": "An asteroid was named 9954 Brachiosaurus in 1991."
+      },
+      {
+          "species": "Stegosaurus",
+          "weight": 11600,
+          "height": 79,
+          "diet": "herbavor",
+          "where": "North America, Europe, Asia",
+          "when": "Late Jurasic to Early Cretaceous",
+          "fact": "The Stegosaurus had between 17 and 22 seperate places and flat spines."
+      },
+      {
+          "species": "Elasmosaurus",
+          "weight": 16000,
+          "height": 59,
+          "diet": "carnivor",
+          "where": "North America",
+          "when": "Late Cretaceous",
+          "fact": "Elasmosaurus was a marine reptile first discovered in Kansas."
+      },
+      {
+          "species": "Pteranodon",
+          "weight": 44,
+          "height": 20,
+          "diet": "carnivor",
+          "where": "North America",
+          "when": "Late Cretaceous",
+          "fact": "Actually a flying reptile, the Pteranodon is not a dinosaur."
+      },
+      {
+          "species": "Pigeon",
+          "weight": 0.5,
+          "height": 9,
+          "diet": "herbavor",
+          "where": "World Wide",
+          "when": "Holocene",
+          "fact": "All birds are living dinosaurs."
+      }
+  ]
 
-      const brachio = new Dino(
-        "Brachiosaurus",
-        70000,
-        372,
-        "herbavor",
-        "North America",
-        "Late Jurasic",
-        "An asteroid was named 9954 Brachiosaurus in 1991.")
+Object.values(dinos)
 
-      const stego = new Dino(
-        "Stegosaurus",
-        11600,
-        79,
-        "herbavor",
-       "North America, Europe, Asia",
-        "Late Jurasic to Early Cretaceous",
-        "The Stegosaurus had between 17 and 22 seperate places and flat spines.")
-
-      const elas = new Dino(
-       "Elasmosaurus",
-        16000,
-        59,
-        "carnivor",
-        "North America",
-        "Late Cretaceous",
-        "Elasmosaurus was a marine reptile first discovered in Kansas.")
-
-      const pteranodon = new Dino(
-       "Pteranodon",
-        44,
-        20,
-        "carnivor",
-        "North America",
-        "Late Cretaceous",
-        "Actually a flying reptile, the Pteranodon is not a dinosaur.")
-
-      const pigeon = new Dino(
-       "Pigeon",
-        0.5,
-        9,
-        "herbavor",
-        "World Wide",
-        "Holocene",
-        "All birds are living dinosaurs.")
 
 
     // Create Human Object
     // Use IIFE to get human data from form
-    document.getElementById('btn').addEventListener('click', (function userData() {
-      let name = document.getElementById('name').value;
+
+     document.getElementById('btn').addEventListener('click', function human() {
+      let humanName = document.getElementById('name').value;
       let feet = parseFloat(document.getElementById('feet').value);
       let inches = parseFloat(document.getElementById('inches').value);
-      let height = (feet * 12) + inches;
-      let weight = parseFloat(document.getElementById('weight').value);
-      let diet = document.getElementById('diet').value;
-      const humanData = {name, height, weight, diet};
-    })();
+      let humanHeight = (feet * 12) + inches;
+      let humanWeight = parseFloat(document.getElementById('weight').value);
+      let humanDiet = document.getElementById('diet').value;
+      const humanData = (humanName, humnanHeight, humanWeight, humanDiet);
+
+return humanData
+    });
+    console.log(human);
+
+
+    //Add human to the middle of Array
+dinos.splice(4,0, human);
+console.log(dinos);
 
 
 
-
-    // Create Dino Compare Method 1
+    // Create Dino Compare  Method 1
     // NOTE: Weight in JSON file is in lbs, height in inches.
 Dino.prototype.compareHeight = function () {
-    if (humanData.height < this.height) {
+    if (human.height < this.height) {
       return this.species + "is taller than you";
     }
     else {
@@ -117,7 +131,7 @@ Dino.prototype.compareHeight = function () {
     // Create Dino Compare Method 2
     // NOTE: Weight in JSON file is in lbs, height in inches.
     Dino.prototype.compareWeight= function () {
-        if (humanData.weight < this.weight) {
+        if (human.weight < this.weight){
           return this.species + "is heaiver than you";
         }
         else {
@@ -128,56 +142,10 @@ Dino.prototype.compareHeight = function () {
     // Create Dino Compare Method 3
     // NOTE: Weight in JSON file is in lbs, height in inches.
     Dino.prototype.compareDiet = function () {
-        if (humanData.diet !== this.diet {
+        if (human.diet !== this.diet) {
           return this.species + "does not share the same diet as you";
         }
         else {
           return this.species + "shares the same diet as you";
         }
   };
-
-    // Generate Tiles for each Dino in Array
-    addtiles = () => {
-             const humandata= gethumandata();
-
-            const dinodata = dino();
-
-            const results =dino_data.slice(0,4).concat(human_data).concat(dino_data.slice(4,8));
-
-            results.forEach((data) => {
-                const { species, image, fact, weight, height, diet } = data;
-                //Call the Dino compare method
-                const dinoCompareDiet = new Dino(
-                    species,
-                    weight,diet, height,
-                     where, when, fact
-                )
-                const compareDiett = dinoCompareDiet.compareDiet();
-        })
-         grid.innerHTML += `
-         <div class="grid-item">
-             <h3>${species}</h3>
-             <img src="${image ? image : ""}" alt="" />
-             <p>${fact ? compareDiet : ""} ${weight ? compareDinoWeight : ""}</p>
-
-           </div>
-       ;
-    }
-
-
-        // Add tiles to DOM
-
-
-
-    // Remove form from screen
-    const humanDataForm = document.getElementById('dino-compare');
-    function hideFormAndShowGrid() {
-        humanDataForm.style.display = "none";
-        gridContentContainer.style.display = "flex";
-    }
-
-// On button click, prepare and display infographic
-const gridContentContainer = document.getElementById('grid');
-function appendHTMLContent(htmlContent) {
-    gridContentContainer.innerHTML = htmlContent;
-}
