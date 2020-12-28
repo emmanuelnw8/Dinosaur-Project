@@ -1,19 +1,5 @@
-    // Create Dino Constructor
-function Dino (species, weight, height, diet, where, when, fact) {
-  this.species =  species
-  this.weight = weight
-  this.height = height
-  this.diet = diet
-  this.where = where
-  this.when = when
-  this.fact = fact
-}
-
-
-    // Create Dino Objects
-
-
-  const dinos =  [
+    // Create Dino Array
+  const dinosArray =  [
       {
           "species": "Triceratops",
           "weight": 13000,
@@ -88,31 +74,60 @@ function Dino (species, weight, height, diet, where, when, fact) {
       }
   ]
 
-Object.values(dinos)
+//Object.values(dinos)
 
+// Create Dino Constructor
+function Dino (species, weight, height, diet, where, when, fact, image) {
+this.species =  species;
+this.weight = weight;
+this.height = height;
+this.diet = diet;
+this.where = where;
+this.when = when;
+this.fact = fact;
+this.image="images/" + species.toLowerCase() + '.png';
+}
 
+//Create dino Object
+let dino = new Dino();
 
     // Create Human Object
-    // Use IIFE to get human data from form
 
-     document.getElementById('btn').addEventListener('click', function human() {
+    //create human constructor to compare with dino
+        class HumanObject {
+      constructor(height, weight, diet, fact) {
+        this.height = height;
+        this.width = width;
+        this.diet = diet;
+        this.fact = "";
+      }
+    }
+
+
+    // Use IIFE to get human data from form (Ignore)
+//Obtain human data from form
+      //const humanForm =
+      function getHuman() {
       let humanName = document.getElementById('name').value;
       let feet = parseFloat(document.getElementById('feet').value);
       let inches = parseFloat(document.getElementById('inches').value);
       let humanHeight = (feet * 12) + inches;
       let humanWeight = parseFloat(document.getElementById('weight').value);
       let humanDiet = document.getElementById('diet').value;
-      const humanData = (humanName, humnanHeight, humanWeight, humanDiet);
 
-return humanData
+      //create variable to save human data into for comparison
+
+      const human = new HumanObject(humanName, humanHeight, humanWeight, humanDiet);
+
+      return human
     });
-    console.log(human);
 
 
-    //Add human to the middle of Array
-dinos.splice(4,0, human);
-console.log(dinos);
 
+
+
+    //Add human to the middle of dino Array
+dinosArray.splice(4,0, human);
 
 
     // Create Dino Compare  Method 1
@@ -149,3 +164,50 @@ Dino.prototype.compareHeight = function () {
           return this.species + "shares the same diet as you";
         }
   };
+
+//Return random fact
+  Dino.prototype.randomFact = function (){
+
+    return this.fact;
+};
+
+
+  // Generate Tiles for each Dino in Array
+function generateTiles () {
+const grid = document.getElementById('grid')
+
+
+dinosArray.forEach((info) => {
+    const { species,weight,diet,height,where,when,fact } = info;
+    const compareDiet = info.compareDiet();
+    const compareWeight = info.compareWeight();
+    const compareHeight = info.compareHeight();
+    const randomFact = info.randomFact();
+
+
+// Add tiles to DOM
+grid.innerHTML += `
+<div class="grid-item">
+ <h3>${species}</h3>
+ <img src="${image.toLowerCase()}" alt="${species} image" />
+ <p>${fact ? compareDiet : ""}
+ ${weight ? compareWeight : ""}
+ ${height ? compareHeight : ""}
+ ${fact ? randomFact : ""}
+ </p>
+
+</div>
+`;
+})}
+
+
+
+// Remove form from screen
+
+  document.getElementById('btn').addEventListener('click', function (){
+  getHuman();
+  generateTiles();
+  document.getElementById("dino-compare").style.display = "none";
+})
+
+// On button click, prepare and display infographic
