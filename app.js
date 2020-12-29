@@ -77,7 +77,7 @@
 //Object.values(dinos)
 
 // Create Dino Constructor
-function Dino (species, weight, height, diet, where, when, fact, image) {
+function Dino (species, weight, height, diet, where, when, fact) {
 this.species =  species;
 this.weight = weight;
 this.height = height;
@@ -85,7 +85,7 @@ this.diet = diet;
 this.where = where;
 this.when = when;
 this.fact = fact;
-this.image="images/" + species.toLowerCase() + '.png';
+//this.image="images/" + species + '.png';
 }
 
 //Create dino Object
@@ -93,21 +93,12 @@ let dino = new Dino();
 
     // Create Human Object
 
-    //create human constructor to compare with dino
-        class HumanObject {
-      constructor(height, weight, diet, fact) {
-        this.height = height;
-        this.width = width;
-        this.diet = diet;
-        this.fact = "";
-      }
-    }
 
 
     // Use IIFE to get human data from form (Ignore)
 //Obtain human data from form
       //const humanForm =
-      function getHuman() {
+    function getHuman() {
       let humanName = document.getElementById('name').value;
       let feet = parseFloat(document.getElementById('feet').value);
       let inches = parseFloat(document.getElementById('inches').value);
@@ -115,25 +106,36 @@ let dino = new Dino();
       let humanWeight = parseFloat(document.getElementById('weight').value);
       let humanDiet = document.getElementById('diet').value;
 
+
+      // create human constructor to compare with dino
+            class HumanObject {
+          constructor(name, height, weight, diet, fact) {
+            this.name= name;
+            this.height = height;
+            this.weight = weight;
+            this.diet = diet;
+            this.fact = "";
+          }
+        }
+
       //create variable to save human data into for comparison
 
-      const human = new HumanObject(humanName, humanHeight, humanWeight, humanDiet);
+      const human = new HumanObject(humanName, humanHeight, humanWeight, humanDiet, "");
 
-      return human
-    });
+      return human;
+    };
 
-
-
+const humanData = getHuman ();
 
 
     //Add human to the middle of dino Array
-dinosArray.splice(4,0, human);
+dinosArray.splice(4,0, humanData);
 
 
     // Create Dino Compare  Method 1
     // NOTE: Weight in JSON file is in lbs, height in inches.
-Dino.prototype.compareHeight = function () {
-    if (human.height < this.height) {
+Dino.prototype.compareHeight = function (humanInfo) {
+    if (humanData.height < this.height) {
       return this.species + "is taller than you";
     }
     else {
@@ -145,8 +147,8 @@ Dino.prototype.compareHeight = function () {
 
     // Create Dino Compare Method 2
     // NOTE: Weight in JSON file is in lbs, height in inches.
-    Dino.prototype.compareWeight= function () {
-        if (human.weight < this.weight){
+    Dino.prototype.compareWeight= function (humanInfo) {
+        if (humanData.weight < this.weight){
           return this.species + "is heaiver than you";
         }
         else {
@@ -156,8 +158,8 @@ Dino.prototype.compareHeight = function () {
 
     // Create Dino Compare Method 3
     // NOTE: Weight in JSON file is in lbs, height in inches.
-    Dino.prototype.compareDiet = function () {
-        if (human.diet !== this.diet) {
+    Dino.prototype.compareDiet = function (humanInfo) {
+        if (humanData.diet !== this.diet) {
           return this.species + "does not share the same diet as you";
         }
         else {
@@ -166,7 +168,7 @@ Dino.prototype.compareHeight = function () {
   };
 
 //Return random fact
-  Dino.prototype.randomFact = function (){
+  Dino.prototype.randomFact = function (humanInfo){
 
     return this.fact;
 };
@@ -177,29 +179,39 @@ function generateTiles () {
 const grid = document.getElementById('grid')
 
 
-dinosArray.forEach((info) => {
-    const { species,weight,diet,height,where,when,fact } = info;
-    const compareDiet = info.compareDiet();
-    const compareWeight = info.compareWeight();
-    const compareHeight = info.compareHeight();
-    const randomFact = info.randomFact();
+// dinosArray.forEach((info) => {
+//     const { species,weight,diet,height,where,when,fact } = info;
+//     const compareDiet = info.compareDiet(humanData.diet);
+//     const compareWeight = info.compareWeight();
+//     const compareHeight = info.compareHeight();
+//     const randomFact = info.randomFact();
 
+    dinosArray.forEach(compare)
+
+    function compare() {
+        // const { species,weight,diet,height,where,when,fact } = info;
+        const compareDiet = dino.compareDiet(humanData.diet);
+        const compareWeight = dino.compareWeight(humanData.weight);
+        const compareHeight = dino.compareHeight(humanData.height);
+        const randomFact = dino.randomFact(humanData.fact);
 
 // Add tiles to DOM
 grid.innerHTML += `
 <div class="grid-item">
- <h3>${species}</h3>
- <img src="${image.toLowerCase()}" alt="${species} image" />
- <p>${fact ? compareDiet : ""}
- ${weight ? compareWeight : ""}
- ${height ? compareHeight : ""}
- ${fact ? randomFact : ""}
+ <h3>${dino.species}</h3>
+ <img src="./images/${dino.species}.png" alt="${dino.species} image" />
+
+ <p>${dino.diet ? dino.compareDiet : ""}
+ ${dino.weight ? dino.compareWeight : ""}
+ ${dino.height ? dino.compareHeight : ""}
+ ${dino.fact ? dino.randomFact : ""}
  </p>
 
 </div>
 `;
-})}
+}}
 
+// <img src="${dino.species}.png" alt="${dino.species} image" />
 
 
 // Remove form from screen
