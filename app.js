@@ -88,16 +88,14 @@ this.fact = fact;
 //this.image="images/" + species + '.png';
 }
 
-//Create dino Object
-let dino = new Dino();
+
+//Create dino Objects for each dinosaur
+const dinos = dinosArray.map(dino => new Dino(dino.species, dino.weight,dino.height, dino.diet, dino.when, dino.fact))
+
 
     // Create Human Object
-
-
-
-    // Use IIFE to get human data from form (Ignore)
 //Obtain human data from form
-      //const humanForm =
+
     function getHuman() {
       let humanName = document.getElementById('name').value;
       let feet = parseFloat(document.getElementById('feet').value);
@@ -129,7 +127,7 @@ const humanData = getHuman ();
 
 
     //Add human to the middle of dino Array
-dinosArray.splice(4,0, humanData);
+dinos.splice(4,0, humanData);
 
 
     // Create Dino Compare  Method 1
@@ -186,25 +184,25 @@ const grid = document.getElementById('grid')
 //     const compareHeight = info.compareHeight();
 //     const randomFact = info.randomFact();
 
-    dinosArray.forEach(compare)
+    dinos.forEach(compare)
 
-    function compare() {
+    function compare(dinos) {
         // const { species,weight,diet,height,where,when,fact } = info;
-        const compareDiet = dino.compareDiet(humanData.diet);
-        const compareWeight = dino.compareWeight(humanData.weight);
-        const compareHeight = dino.compareHeight(humanData.height);
-        const randomFact = dino.randomFact(humanData.fact);
+        const compareDiet = dinos.compareDiet(humanData.diet);
+        const compareWeight = dinos.compareWeight(humanData.weight);
+        const compareHeight = dinos.compareHeight(humanData.height);
+        const randomFact = dinos.randomFact(humanData.fact);
 
 // Add tiles to DOM
 grid.innerHTML += `
 <div class="grid-item">
- <h3>${dino.species}</h3>
- <img src="./images/${dino.species}.png" alt="${dino.species} image" />
+ <h3>${dinos.species}</h3>
+ <img src="./images/${dinos.sspecies}.png" alt="${dinos.species} image" />
 
- <p>${dino.diet ? dino.compareDiet : ""}
- ${dino.weight ? dino.compareWeight : ""}
- ${dino.height ? dino.compareHeight : ""}
- ${dino.fact ? dino.randomFact : ""}
+ <p>${dinos.diet ? dinos.compareDiet : ""}
+ ${dinos.weight ? dinos.compareWeight : ""}
+ ${dinos.height ? dinos.compareHeight : ""}
+ ${dinos.fact ? dinos.randomFact : ""}
  </p>
 
 </div>
