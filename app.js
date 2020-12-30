@@ -77,7 +77,7 @@
 //Object.values(dinos)
 
 // Create Dino Constructor
-function Dino (species, weight, height, diet, where, when, fact) {
+function Dino (species, weight, height, diet, where, when, fact, name) {
 this.species =  species;
 this.weight = weight;
 this.height = height;
@@ -85,6 +85,7 @@ this.diet = diet;
 this.where = where;
 this.when = when;
 this.fact = fact;
+this.name = "";
 //this.image="images/" + species + '.png';
 }
 
@@ -107,18 +108,21 @@ const dinos = dinosArray.map(dino => new Dino(dino.species, dino.weight,dino.hei
 
       // create human constructor to compare with dino
             class HumanObject {
-          constructor(name, height, weight, diet, fact) {
-            this.name= name;
-            this.height = height;
+          constructor(species, weight, height, diet, where, when, fact, name) {
+            this.species= "human";
             this.weight = weight;
+            this.height = height;
             this.diet = diet;
+            this.where = "";
+            this.when = "";
             this.fact = "";
+            this.name = name;
           }
         }
 
       //create variable to save human data into for comparison
 
-      const human = new HumanObject(humanName, humanHeight, humanWeight, humanDiet, "");
+      const human = new HumanObject("", humanWeight, humanHeight, humanDiet, "", "", "", humanName);
 
       return human;
     };
@@ -155,15 +159,7 @@ function compareHeight (humanInfo) {
 };
 
     // Create Dino Compare Method 3
-    // NOTE: Weight in JSON file is in lbs, height in inches.
-  //   Dino.prototype.compareDiet = function (humanInfo) {
-  //       if (humanData.diet !== this.diet) {
-  //         return this.species + "does not share the same diet as you";
-  //       }
-  //       else {
-  //         return this.species + "shares the same diet as you";
-  //       }
-  // };
+    // NOTE: Weight in JSON file is in lbs, height in inches
 
   function compareDiet (humanInfo) {
       if (humanData.diet !== this.diet) {
@@ -188,7 +184,15 @@ const grid = document.getElementById('grid')
 
     dinos.forEach(compare)
 
-    function compare(dinos) {
+
+      function compare(dinos, index) {
+        if (index === 4) {
+          grid.innerHTML += `
+          <div class="grid-item">
+           <h3>${dinos.name}</h3>
+           <img src="./images/${dinos.species}.png" alt="${dinos.species} image" />`
+        }
+        else {
         // const { species,weight,diet,height,where,when,fact } = info;
         const comparingDiet = compareDiet(humanData.diet);
         const comparingWeight = compareWeight(humanData.weight);
@@ -209,7 +213,7 @@ grid.innerHTML += `
 
 </div>
 `;
-}}
+}}}
 
 // <img src="${dino.species}.png" alt="${dino.species} image" />
 
@@ -217,7 +221,7 @@ grid.innerHTML += `
 // Remove form from screen
 
   document.getElementById('btn').addEventListener('click', function (){
-  getHuman();
+  humanData;
   generateTiles();
   document.getElementById("dino-compare").style.display = "none";
 })
