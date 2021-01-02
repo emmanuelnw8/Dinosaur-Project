@@ -87,11 +87,25 @@ this.when = when;
 this.fact = fact;
 this.name = "";
 //this.image="images/" + species + '.png';
+
+
 }
 
 
 //Create dino Objects for each dinosaur
-const dinos = dinosArray.map(dino => new Dino(dino.species, dino.weight,dino.height, dino.diet, dino.when, dino.fact))
+const dinos = dinosArray.map(dino => new Dino
+  (
+
+    dino.species,
+    dino.weight,
+    dino.height,
+    dino.diet,
+    dino.where,
+    dino.when,
+    dino.fact,
+
+ )
+  )
 
 
     // Create Human Object
@@ -127,16 +141,15 @@ const dinos = dinosArray.map(dino => new Dino(dino.species, dino.weight,dino.hei
       return human;
     };
 
-const humanData = getHuman ();
+let humanData;
 
 
-    //Add human to the middle of dino Array
-dinos.splice(4,0, humanData);
+
 
 
     // Create Dino Compare  Method 1
     // NOTE: Weight in JSON file is in lbs, height in inches.
-function compareHeight (humanInfo) {
+Dino.prototype.compareHeight = function (humanInfo) {
     if (humanData.height < this.height) {
       return this.species + " is taller than you";
     }
@@ -149,7 +162,7 @@ function compareHeight (humanInfo) {
 
     // Create Dino Compare Method 2
     // NOTE: Weight in JSON file is in lbs, height in inches.
-    function compareWeight (humanInfo) {
+    Dino.prototype.compareWeight = function  (humanInfo) {
         if (humanData.weight < this.weight){
           return this.species + " is heaiver than you";
         }
@@ -161,7 +174,7 @@ function compareHeight (humanInfo) {
     // Create Dino Compare Method 3
     // NOTE: Weight in JSON file is in lbs, height in inches.
 
-  function compareDiet (humanInfo) {
+  Dino.prototype.compareDiet = function (humanInfo) {
       if (humanData.diet !== this.diet) {
         return this.species + " does not share the same diet as you";
       }
@@ -171,7 +184,7 @@ function compareHeight (humanInfo) {
   };
 
 //Return random fact
-  function randomFact (humanInfo){
+  Dino.prototype.randomFact = function (humanInfo){
 
     return this.fact;
 };
@@ -194,10 +207,10 @@ const grid = document.getElementById('grid')
         }
         else {
         // const { species,weight,diet,height,where,when,fact } = info;
-        const comparingDiet = compareDiet(humanData.diet);
-        const comparingWeight = compareWeight(humanData.weight);
-        const comparingHeight = compareHeight(humanData.height);
-        const giveRandomFact = randomFact(humanData.fact);
+        const comparingDiet = dinos.compareDiet(humanData.diet);
+        const comparingWeight = dinos.compareWeight(humanData.weight);
+        const comparingHeight = dinos.compareHeight(humanData.height);
+        const giveRandomFact = dinos.randomFact(humanData.fact);
 
 // Add tiles to DOM
 grid.innerHTML += `
@@ -221,7 +234,9 @@ grid.innerHTML += `
 // Remove form from screen
 
   document.getElementById('btn').addEventListener('click', function (){
-  getHuman();
+  humanData = getHuman();
+  //Add human to the middle of dino Array
+dinos.splice(4,0, humanData);
   generateTiles();
   document.getElementById("dino-compare").style.display = "none";
 })
