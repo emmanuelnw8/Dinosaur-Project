@@ -138,10 +138,10 @@ dinos.splice(4,0, humanData);
     // NOTE: Weight in JSON file is in lbs, height in inches.
 function compareHeight (humanInfo) {
     if (humanData.height < this.height) {
-      return this.species + "is taller than you";
+      return this.species + " is taller than you";
     }
     else {
-      return this.species + "is shorter than you";
+      return this.species + " is shorter than you";
     }
 
 };
@@ -151,22 +151,22 @@ function compareHeight (humanInfo) {
     // NOTE: Weight in JSON file is in lbs, height in inches.
     function compareWeight (humanInfo) {
         if (humanData.weight < this.weight){
-          return this.species + "is heaiver than you";
+          return this.species + " is heaiver than you";
         }
         else {
-          return this.species + "is not heavier than you";
+          return this.species + " is not heavier than you";
         }
 };
 
     // Create Dino Compare Method 3
-    // NOTE: Weight in JSON file is in lbs, height in inches
+    // NOTE: Weight in JSON file is in lbs, height in inches.
 
   function compareDiet (humanInfo) {
       if (humanData.diet !== this.diet) {
-        return this.species + "does not share the same diet as you";
+        return this.species + " does not share the same diet as you";
       }
       else {
-        return this.species + "shares the same diet as you";
+        return this.species + " shares the same diet as you";
       }
   };
 
@@ -205,10 +205,10 @@ grid.innerHTML += `
  <h3>${dinos.species}</h3>
  <img src="./images/${dinos.species}.png" alt="${dinos.species} image" />
 
- <p>${dinos.diet ? dinos.compareDiet : ""}
- ${dinos.weight ? dinos.compareWeight : ""}
- ${dinos.height ? dinos.compareHeight : ""}
- ${dinos.fact ? dinos.randomFact : ""}
+ <p>${dinos.diet ? comparingDiet : ""}
+ ${dinos.weight ? comparingWeight : ""}
+ ${dinos.height ? comparingHeight : ""}
+ ${dinos.fact ? giveRandomFact : ""}
  </p>
 
 </div>
@@ -221,7 +221,7 @@ grid.innerHTML += `
 // Remove form from screen
 
   document.getElementById('btn').addEventListener('click', function (){
-  humanData;
+  getHuman();
   generateTiles();
   document.getElementById("dino-compare").style.display = "none";
 })
