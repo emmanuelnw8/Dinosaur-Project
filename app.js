@@ -206,6 +206,33 @@ const grid = document.getElementById('grid')
            <img src="./images/${dinos.species}.png" alt="${dinos.species} image" />`
         }
         else {
+          //Pigeon must always return fact
+          //Other Dinos can return a random "fact"/"Comnpare"
+          const randomNumber = dinos.species === 'Pigeon' ? 2 : Math.round(Math.random() * 5);
+
+          switch (randomNumber) {
+              case 0:
+                  fact = `The ${dinos.species} lived in ${dinos.where}.`;
+                  break;
+              case 1:
+                  fact = `The ${dinos.species} lived in the ${dinos.when} period.`;
+                  break;
+              case 2:
+                  fact = dinos.fact;
+                  break;
+              case 3:
+                  fact = dinos.compareWeight(humanData.weight);
+                  break;
+              case 4:
+                  fact = dinos.compareHeight(humanData.height);
+                  break;
+              case 5:
+                  fact = dinos.compareDiet(humanData.diet);
+                  break;
+              default:
+                  fact = ' ';
+          }
+
         // const { species,weight,diet,height,where,when,fact } = info;
         const comparingDiet = dinos.compareDiet(humanData.diet);
         const comparingWeight = dinos.compareWeight(humanData.weight);
@@ -213,15 +240,15 @@ const grid = document.getElementById('grid')
         const giveRandomFact = dinos.randomFact(humanData.fact);
 
 // Add tiles to DOM
+// Conditional (ternary) operator https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator
+//the "fact" in <p> relates to fact in switch and case above
 grid.innerHTML += `
 <div class="grid-item">
  <h3>${dinos.species}</h3>
  <img src="./images/${dinos.species}.png" alt="${dinos.species} image" />
 
- <p>${dinos.diet ? comparingDiet : ""}
- ${dinos.weight ? comparingWeight : ""}
- ${dinos.height ? comparingHeight : ""}
- ${dinos.fact ? giveRandomFact : ""}
+ <p>${fact}
+
  </p>
 
 </div>
